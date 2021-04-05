@@ -1,6 +1,7 @@
 # Local
 .env
 
+/yarn.lock
 
 # compiled output
 /dist
