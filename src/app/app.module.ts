@@ -6,6 +6,6 @@ import { CommonModule } from "../common/common.module";
 import { EntitiesModule } from "../entities/entities.module";
 
 @Module({
-  imports: [CommonModule, AuthModule],
+  imports: [TypeOrmModule.forRoot(), EntitiesModule, CommonModule, AuthModule],
 })
 export class AppModule {}

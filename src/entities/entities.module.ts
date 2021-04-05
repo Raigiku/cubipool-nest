@@ -26,5 +26,18 @@ import {
       UserTypeOrm,
     ]),
   ],
+  exports: [
+    TypeOrmModule.forFeature([
+      CampusTypeOrm,
+      CubicleTypeOrm,
+      PointsRecordTypeOrm,
+      PrizeTypeOrm,
+      PublicationTypeOrm,
+      ReservationTypeOrm,
+      UserPrizeTypeOrm,
+      UserReservationTypeOrm,
+      UserTypeOrm,
+    ]),
+  ],
 })
 export class EntitiesModule {}
