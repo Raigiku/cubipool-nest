@@ -29,13 +29,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install
+    - name: Install dependencies
       run: npm ci
 
-    - name: Format
+    - name: Format code with Prettier
       run: npm run format
 
-    - name: Commit changes
+    - name: Commit format changes
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Apply formatting changes
