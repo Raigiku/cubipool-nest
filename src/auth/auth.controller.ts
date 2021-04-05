@@ -7,7 +7,8 @@ export class AuthController {
   constructor(private loginUserStory: LoginUserStory) {}
 
   @Get()
-  testGet(): Promise<UserTypeOrm[]> {
-    return this.loginUserStory.query();
+  testGet(): string {
+    return "its working";
+    // return this.loginUserStory.query();
   }
 }
