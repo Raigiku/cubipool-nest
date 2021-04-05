@@ -10,7 +10,7 @@ export class AuthController {
 
   @Get()
   testHello(): string {
-    return "Hello World!";
+    return "Hello World! Heroku!";
   }
 
   @Get("test-users")
