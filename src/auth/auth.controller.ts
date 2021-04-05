@@ -4,6 +4,6 @@ import { Controller, Get } from "@nestjs/common";
 export class AuthController {
   @Get()
   hello(): string {
-    return "hello zeit now github actions";
+    return "hello zeit now github actions prettier";
   }
 }
