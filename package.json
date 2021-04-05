@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "deploy": "npm run build && now --prod --token $ZEIT_TOKEN"
+    "deploy": "npm run build && vercel --prod --token $ZEIT_TOKEN --confirm"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -35,7 +35,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
     "typeorm": "^0.2.32",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "vercel": "^21.3.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
