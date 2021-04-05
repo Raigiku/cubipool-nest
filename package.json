@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "deploy": "npm run build && vercel --prod --token $ZEIT_TOKEN --confirm --env CUBIPOOL_POSTGRESQL_URL=$CUBIPOOL_POSTGRESQL_URL"
+    "deploy": "npm run build && npm run start:prod"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -78,5 +78,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "14.16.0"
   }
 }

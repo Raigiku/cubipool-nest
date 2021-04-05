@@ -32,6 +32,11 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Build
+      run: npm run build --if-present
+      env:
+        CUBIPOOL_POSTGRESQL_URL:  ${{ secrets.CUBIPOOL_POSTGRESQL_URL }} 
+
     - name: Format code with Prettier
       run: npm run format
 
@@ -41,11 +46,17 @@ jobs:
         commit_message: Apply formatting changes
         branch: ${{ github.head_ref }}
 
-    - name: Deploy to ZEIT Now
-      run: |
-        npm run build --if-present
-        npm run deploy
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+
+    - name: Build and push
       env:
-        CI: true
-        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} 
-        CUBIPOOL_POSTGRESQL_URL:  ${{ secrets.CUBIPOOL_POSTGRESQL_URL }} 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web 
+      
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
