@@ -52,3 +52,4 @@ jobs:
         heroku_email: ${{secrets.HEROKU_EMAIL}}
       env:
         HD_CUBIPOOL_POSTGRESQL_URL: ${{secrets.CUBIPOOL_POSTGRESQL_URL}}
+        HD_CUBIPOOL_JWT_SECRET: ${{secrets.CUBIPOOL_JWT_SECRET}}
