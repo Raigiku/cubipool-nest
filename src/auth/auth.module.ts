@@ -13,7 +13,7 @@ import { JwtStrategy } from "./strategies/jwt.strategy";
     PassportModule,
     JwtModule.register({
       secret: process.env.CUBIPOOL_JWT_SECRET,
-      signOptions: { expiresIn: "60s" },
+      signOptions: { expiresIn: "7d" },
     }),
   ],
   controllers: [AuthController],
