@@ -8,9 +8,6 @@ export class UserTypeOrm {
   @PrimaryColumn("uuid", { name: "user_id" })
   readonly id: string;
 
-  @Column("varchar", { name: "student_code", length: 100, nullable: false })
-  readonly studentCode: string;
-
   @Column("varchar", { name: "username", length: 50, nullable: true })
   readonly username: string;
 
