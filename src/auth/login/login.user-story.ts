@@ -4,11 +4,12 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { UserTypeOrm } from "src/entities/typeorm";
 import { Repository } from "typeorm";
 import {
-  LoginUserStoryException,
+  LoginUserStoryError,
   LoginUserStoryInput,
   LoginUserStoryOutput,
 } from ".";
 import { compare as bcryptCompare } from "bcryptjs";
+import { HttpException, HttpStatus } from "@nestjs/common";
 
 @Injectable()
 export class LoginUserStory {
@@ -22,20 +23,31 @@ export class LoginUserStory {
     const user = await this.userRepository.findOne({
       where: { username: input.username },
     });
-    const usernameNotFound = user == null;
-    if (usernameNotFound) {
-      throw LoginUserStoryException.usernameOrPasswordNotFound;
-    }
-
-    const passwordsMatch = await bcryptCompare(input.password, user.password);
-    if (!passwordsMatch) {
-      throw LoginUserStoryException.usernameOrPasswordNotFound;
-    }
-
+    await this.validate(input, user);
     const payload = { id: user.id };
     const output: LoginUserStoryOutput = {
       jwt: this.jwtService.sign(payload),
     };
     return output;
+  }
+
+  async validate(input: LoginUserStoryInput, user: UserTypeOrm) {
+    const errors: string[] = [];
+
+    // check if username exists
+    const usernameNotFound = user == null;
+    if (usernameNotFound) {
+      errors.push(LoginUserStoryError.usernameOrPasswordNotFound);
+    }
+
+    // check if passwords match
+    const passwordsMatch = await bcryptCompare(input.password, user.password);
+    if (!passwordsMatch) {
+      errors.push(LoginUserStoryError.usernameOrPasswordNotFound);
+    }
+
+    if (errors.length > 0) {
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+    }
   }
 }

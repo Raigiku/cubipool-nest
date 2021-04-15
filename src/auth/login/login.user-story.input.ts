@@ -1,11 +1,8 @@
-import { IsNotEmpty, MaxLength } from "class-validator";
+import { IsPassword, IsUsername } from "src/common/validators/user.validator";
 
 export class LoginUserStoryInput {
-  @IsNotEmpty()
-  @MaxLength(50)
+  @IsUsername()
   username: string;
-
-  @IsNotEmpty()
-  @MaxLength(200)
+  @IsPassword()
   password: string;
 }

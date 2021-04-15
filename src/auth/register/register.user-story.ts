@@ -1,9 +1,10 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserTypeOrm } from "src/entities/typeorm";
 import { Repository } from "typeorm";
-import { RegisterUserStoryInput, RegisterUserStoryException } from ".";
+import { RegisterUserStoryInput, RegisterUserStoryError } from ".";
 import { v4 as uuidv4 } from "uuid";
 import { hash as bcryptHash } from "bcryptjs";
+import { HttpException, HttpStatus } from "@nestjs/common";
 
 export class RegisterUserStory {
   constructor(
@@ -12,14 +13,7 @@ export class RegisterUserStory {
   ) {}
 
   async execute(input: RegisterUserStoryInput) {
-    const user = await this.userRepository.findOne({
-      where: { username: input.username },
-    });
-    const usernameFound = user != null;
-    if (usernameFound) {
-      throw RegisterUserStoryException.usernameFound;
-    }
-
+    await this.validate(input);
     const hashedPassword = await bcryptHash(input.password, 10);
     const newUser: UserTypeOrm = {
       id: uuidv4(),
@@ -32,5 +26,22 @@ export class RegisterUserStory {
       userReservations: null,
     };
     this.userRepository.save(newUser);
+  }
+
+  async validate(input: RegisterUserStoryInput) {
+    const errors: string[] = [];
+
+    // check if username exists
+    const user = await this.userRepository.findOne({
+      where: { username: input.username },
+    });
+    const usernameFound = user != null;
+    if (usernameFound) {
+      errors.push(RegisterUserStoryError.usernameFound);
+    }
+
+    if (errors.length > 0) {
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+    }
   }
 }
