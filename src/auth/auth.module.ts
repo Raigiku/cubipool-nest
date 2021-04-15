@@ -5,7 +5,7 @@ import { EntitiesModule } from "src/entities/entities.module";
 import { AuthController } from "./auth.controller";
 import { LoginUserStory } from "./login";
 import { RegisterUserStory } from "./register";
-import { JwtStrategy } from "./strategies/jwt.strategy";
+import { JwtStrategy } from "../common/strategies/jwt.strategy";
 
 @Module({
   imports: [
