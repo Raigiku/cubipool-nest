@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { CubicleModule } from "src/cubicle/cubicle.module";
 
 import { AuthModule } from "../auth/auth.module";
 import { CommonModule } from "../common/common.module";
@@ -23,6 +24,7 @@ import { EntitiesModule } from "../entities/entities.module";
     EntitiesModule,
     CommonModule,
     AuthModule,
+    CubicleModule,
   ],
 })
 export class AppModule {}
