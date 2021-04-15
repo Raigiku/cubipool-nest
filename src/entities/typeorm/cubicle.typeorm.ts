@@ -5,12 +5,14 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryColumn,
+  Unique,
 } from "typeorm";
 
 import { CampusTypeOrm } from "./campus.typeorm";
 import { ReservationTypeOrm } from "./reservation.typeorm";
 
 @Entity("cubicles")
+@Unique(["code", "pavilion", "campusId"])
 export class CubicleTypeOrm {
   @PrimaryColumn("uuid", { name: "cubicle_id" })
   readonly id: string;
