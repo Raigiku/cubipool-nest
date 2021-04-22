@@ -16,13 +16,6 @@ export class AuthController {
     private readonly registerUserStory: RegisterUserStory
   ) {}
 
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get()
-  testHello(): string {
-    return "Hello World! Heroku!";
-  }
-
   @Post("login")
   login(@Body() input: LoginUserStoryInput): Promise<LoginUserStoryOutput> {
     return this.loginUserStory.query(input);
