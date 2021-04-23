@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
-import { EntitiesModule } from "src/entities/entities.module";
+import { PersistenceModule } from "src/persistence/persistence.module";
 import { CampusController } from "./campus.controller";
 import { GetAllCampusesUserStory } from "./get-all-campuses";
 
 @Module({
-  imports: [EntitiesModule],
+  imports: [PersistenceModule],
   controllers: [CampusController],
   providers: [GetAllCampusesUserStory],
 })

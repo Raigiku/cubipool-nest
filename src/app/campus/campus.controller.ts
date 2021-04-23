@@ -14,6 +14,6 @@ export class CampusController {
   // @UseGuards(JwtAuthGuard)
   // @Get()
   // getAllCampuses(): Promise<GetAllCampusesUserStoryOutput[]> {
-  //   return this.getAllCampusesUserUserStory.query();
+  //   return this.getAllCampusesUserUserStory.execute();
   // }
 }

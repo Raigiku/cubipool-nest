@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { PointsRecordTypeOrm } from "./points-record.typeorm";
 import { UserPrizeTypeOrm } from "./user-prize.typeorm";
 import { UserReservationTypeOrm } from "./user-reservation.typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 @Entity("users")
 export class UserTypeOrm {
@@ -29,4 +30,17 @@ export class UserTypeOrm {
 
   @OneToMany(() => UserPrizeTypeOrm, (entity) => entity.user)
   readonly userPrizes: UserPrizeTypeOrm[];
+
+  static new(username: string, hashedPassword: string): UserTypeOrm {
+    return {
+      id: uuidv4(),
+      username: username,
+      password: hashedPassword,
+      points: 0,
+      maxHoursPerDay: 2,
+      pointsRecords: null,
+      userPrizes: null,
+      userReservations: null,
+    };
+  }
 }

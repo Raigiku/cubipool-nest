@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UserTypeOrm } from "src/entities/typeorm";
+import { UserTypeOrm } from "../../../persistence/typeorm/entities/user.typeorm";
 import { Repository } from "typeorm";
 import {
   LoginUserStoryError,
@@ -19,7 +19,7 @@ export class LoginUserStory {
     private readonly jwtService: JwtService
   ) {}
 
-  async query(input: LoginUserStoryInput): Promise<LoginUserStoryOutput> {
+  async execute(input: LoginUserStoryInput): Promise<LoginUserStoryOutput> {
     const user = await this.userRepository.findOne({
       where: { username: input.username },
     });
@@ -41,9 +41,11 @@ export class LoginUserStory {
     }
 
     // check if passwords match
-    const passwordsMatch = await bcryptCompare(input.password, user.password);
-    if (!passwordsMatch) {
-      errors.push(LoginUserStoryError.usernameOrPasswordNotFound);
+    if (!usernameNotFound) {
+      const passwordsMatch = await bcryptCompare(input.password, user.password);
+      if (!passwordsMatch) {
+        errors.push(LoginUserStoryError.usernameOrPasswordNotFound);
+      }
     }
 
     if (errors.length > 0) {

@@ -18,6 +18,6 @@ export class CubicleController {
   // @UseGuards(JwtAuthGuard)
   // @Get("available")
   // getAvailableCubicles(input: GetAvailableCubiclesUserStoryInput): GetAvailableCubiclesUserStoryOutput {
-  //   return this.getAvailableCubiclesUserStory.query(input);
+  //   return this.getAvailableCubiclesUserStory.execute(input);
   // }
 }

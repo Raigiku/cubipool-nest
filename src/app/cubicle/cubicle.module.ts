@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
-import { EntitiesModule } from "src/entities/entities.module";
+import { PersistenceModule } from "src/persistence/persistence.module";
 import { CubicleController } from "./cubicle.controller";
 import { GetAvailableCubiclesUserStory } from "./get-available-cubicles";
 
 @Module({
-  imports: [EntitiesModule],
+  imports: [PersistenceModule],
   controllers: [CubicleController],
   providers: [GetAvailableCubiclesUserStory],
 })

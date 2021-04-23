@@ -1,10 +1,10 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { UserTypeOrm } from "src/entities/typeorm";
+import { UserTypeOrm } from "../../../persistence/typeorm/entities";
 import { Repository } from "typeorm";
 import { RegisterUserStoryInput, RegisterUserStoryError } from ".";
-import { v4 as uuidv4 } from "uuid";
 import { hash as bcryptHash } from "bcryptjs";
 import { HttpException, HttpStatus } from "@nestjs/common";
+import { RegisterUserStoryOutput } from "./register.user-story.output";
 
 export class RegisterUserStory {
   constructor(
@@ -12,20 +12,12 @@ export class RegisterUserStory {
     private readonly userRepository: Repository<UserTypeOrm>
   ) {}
 
-  async execute(input: RegisterUserStoryInput) {
+  async execute(input: RegisterUserStoryInput): Promise<RegisterUserStoryOutput> {
     await this.validate(input);
     const hashedPassword = await bcryptHash(input.password, 10);
-    const newUser: UserTypeOrm = {
-      id: uuidv4(),
-      username: input.username,
-      password: hashedPassword,
-      points: 0,
-      maxHoursPerDay: 2,
-      pointsRecords: null,
-      userPrizes: null,
-      userReservations: null,
-    };
+    const newUser = UserTypeOrm.new(input.username, hashedPassword);
     this.userRepository.save(newUser);
+    return newUser;
   }
 
   async validate(input: RegisterUserStoryInput) {
@@ -37,7 +29,7 @@ export class RegisterUserStory {
     });
     const usernameFound = user != null;
     if (usernameFound) {
-      errors.push(RegisterUserStoryError.usernameFound);
+      errors.push(RegisterUserStoryError.usernameExists);
     }
 
     if (errors.length > 0) {

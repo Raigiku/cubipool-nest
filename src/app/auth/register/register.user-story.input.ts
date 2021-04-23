@@ -1,4 +1,4 @@
-import { IsPassword, IsUsername } from "src/common/validators/user.validator";
+import { IsPassword, IsUsername } from "../../../common/validators/user.validator";
 
 export class RegisterUserStoryInput {
   @IsUsername()

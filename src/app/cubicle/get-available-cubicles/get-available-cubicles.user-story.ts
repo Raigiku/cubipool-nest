@@ -2,7 +2,7 @@ import { GetAvailableCubiclesUserStoryInput } from "./get-available-cubicles.use
 import { GetAvailableCubiclesUserStoryOutput } from "./get-available-cubicles.user-story.output";
 
 export class GetAvailableCubiclesUserStory {
-  async query(
+  async execute(
     input: GetAvailableCubiclesUserStoryInput
   ): Promise<GetAvailableCubiclesUserStoryOutput> {
     return null;

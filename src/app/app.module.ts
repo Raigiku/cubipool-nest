@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { CampusModule } from "src/campus/campus.module";
-import { CubicleModule } from "src/cubicle/cubicle.module";
+import { CampusModule } from "./campus/campus.module";
+import { CubicleModule } from "./cubicle/cubicle.module";
 
-import { AuthModule } from "../auth/auth.module";
+import { AuthModule } from "./auth/auth.module";
 import { CommonModule } from "../common/common.module";
-import { EntitiesModule } from "../entities/entities.module";
+import { PersistenceModule } from "../persistence/persistence.module";
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { EntitiesModule } from "../entities/entities.module";
         },
       },
     }),
-    EntitiesModule,
+    PersistenceModule,
     CommonModule,
     AuthModule,
     CubicleModule,
