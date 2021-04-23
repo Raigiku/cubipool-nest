@@ -17,7 +17,7 @@ export class RegisterUserStory {
     const hashedPassword = await bcryptHash(input.password, 10);
     const newUser = UserTypeOrm.new(input.username, hashedPassword);
     this.userRepository.save(newUser);
-    return newUser;
+    return RegisterUserStoryOutput.fromUser(newUser);
   }
 
   async validate(input: RegisterUserStoryInput) {

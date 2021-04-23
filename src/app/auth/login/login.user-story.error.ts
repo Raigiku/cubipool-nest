@@ -1,4 +1,4 @@
 export class LoginUserStoryError {
   static usernameOrPasswordNotFound =
-    "Nombre de usuario o contraseña equivocada";
+    "nombre de usuario o contraseña equivocada";
 }

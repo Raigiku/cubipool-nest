@@ -1,3 +1,3 @@
 export class RegisterUserStoryError {
-  static usernameExists = "El nombre de usuario ya existe";
+  static usernameExists = "el nombre de usuario ya existe";
 }
