@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserRepository } from "./interfaces/user.repository";
 import {
   CampusTypeOrm,
   CubicleTypeOrm,
@@ -12,7 +11,6 @@ import {
   UserReservationTypeOrm,
   UserTypeOrm,
 } from "./typeorm/entities";
-import { UserRepositoryTypeOrm } from "./typeorm/repositories";
 
 @Module({
   imports: [
@@ -40,13 +38,6 @@ import { UserRepositoryTypeOrm } from "./typeorm/repositories";
       UserReservationTypeOrm,
       UserTypeOrm,
     ]),
-    UserRepository,
-  ],
-  providers: [
-    {
-      provide: UserRepository,
-      useClass: UserRepositoryTypeOrm,
-    },
   ],
 })
 export class PersistenceModule {}
