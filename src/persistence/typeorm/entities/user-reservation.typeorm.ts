@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { ReservationTypeOrm } from "./reservation.typeorm";
 import { UserTypeOrm } from "./user.typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 @Entity("user_reservations")
 export class UserReservationTypeOrm {
@@ -27,4 +28,18 @@ export class UserReservationTypeOrm {
   @ManyToOne(() => ReservationTypeOrm)
   @JoinColumn({ name: "reservation_id", referencedColumnName: "id" })
   readonly reservation: ReservationTypeOrm;
+
+  static newActivator(
+    user: UserTypeOrm,
+    reservation: ReservationTypeOrm
+  ): UserReservationTypeOrm {
+    return {
+      id: uuidv4(),
+      reservation: reservation,
+      reservationId: reservation.id,
+      type: "ACTIVATOR",
+      user: user,
+      userId: user.id,
+    };
+  }
 }

@@ -6,6 +6,8 @@ import { CubicleModule } from "./cubicle/cubicle.module";
 import { AuthModule } from "./auth/auth.module";
 import { CommonModule } from "../common/common.module";
 import { PersistenceModule } from "../persistence/persistence.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { ReservationModule } from "./reservation/reservation.module";
 
 @Module({
   imports: [
@@ -22,11 +24,13 @@ import { PersistenceModule } from "../persistence/persistence.module";
         },
       },
     }),
+    ScheduleModule.forRoot(),
     PersistenceModule,
     CommonModule,
     AuthModule,
     CubicleModule,
     CampusModule,
+    ReservationModule,
   ],
 })
 export class AppModule {}

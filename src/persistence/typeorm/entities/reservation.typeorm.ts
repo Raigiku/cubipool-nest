@@ -9,6 +9,7 @@ import {
 import { CubicleTypeOrm } from "./cubicle.typeorm";
 import { PublicationTypeOrm } from "./publication.typeorm";
 import { UserReservationTypeOrm } from "./user-reservation.typeorm";
+import * as moment from "moment";
 
 @Entity("reservations")
 export class ReservationTypeOrm {
@@ -21,7 +22,7 @@ export class ReservationTypeOrm {
     enum: ["NOT_ACTIVE", "ACTIVE", "CANCELLED", "SHARED", "FINISHED"],
     nullable: false,
   })
-  readonly type: "NOT_ACTIVE" | "ACTIVE" | "CANCELLED" | "SHARED" | "FINISHED";
+  type: "NOT_ACTIVE" | "ACTIVE" | "CANCELLED" | "SHARED" | "FINISHED";
 
   @Column("timestamptz", { name: "start_time", nullable: false })
   readonly startTime: string;
@@ -41,4 +42,33 @@ export class ReservationTypeOrm {
 
   @OneToMany(() => UserReservationTypeOrm, (entity) => entity.reservation)
   readonly userReservations: UserReservationTypeOrm[];
+
+  activate() {
+    this.type = "ACTIVE";
+  }
+
+  finish() {
+    this.type = "FINISHED";
+  }
+
+  get hasFinished() {
+    return this.type === "FINISHED";
+  }
+
+  get readyToFinish() {
+    return this.type === "ACTIVE" || "SHARED";
+  }
+
+  get msUntilEndTime() {
+    return moment(this.endTime).diff(new Date());
+  }
+
+  get msUntilActivationTimeFrame() {
+    return moment(new Date()).diff(this.startTime);
+  }
+
+  get notInsideActivationTimeFrame() {
+    const millisecondDiff = this.msUntilActivationTimeFrame;
+    return !(millisecondDiff >= 0 && millisecondDiff <= 300000);
+  }
 }
