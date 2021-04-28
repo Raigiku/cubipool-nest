@@ -6,7 +6,7 @@
       {
         "name": "@nestjs/swagger",
         "options": {
-          "dtoFileNameSuffix": [".input.ts", ".output.ts"]
+          "dtoFileNameSuffix": [".input.ts", ".output.ts", ".params.ts", ".body.ts", ".queries.ts", ".headers.ts"]
         }
       }
     ]
