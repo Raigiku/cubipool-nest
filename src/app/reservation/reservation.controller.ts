@@ -22,7 +22,7 @@ export class ReservationController {
     @Param() params: ActivateReservationParams,
     @Body() body: ActivateReservationBody
   ) {
-    const input = new ActivateReservationUserStoryInput(body.activatorId, params.id);
+    const input = new ActivateReservationUserStoryInput(body.activatorUsername, params.id);
     return this.activateReservationUserStory.execute(input);
   }
 }

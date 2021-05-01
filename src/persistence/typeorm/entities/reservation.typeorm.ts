@@ -69,6 +69,6 @@ export class ReservationTypeOrm {
 
   get notInsideActivationTimeFrame() {
     const millisecondDiff = this.msUntilActivationTimeFrame;
-    return !(millisecondDiff >= 0 && millisecondDiff <= 300000);
+    return !(millisecondDiff >= 0 && millisecondDiff <= 600000);
   }
 }

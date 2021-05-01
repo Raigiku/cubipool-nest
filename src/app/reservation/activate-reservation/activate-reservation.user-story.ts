@@ -27,7 +27,7 @@ export class ActivateReservationUserStory {
       where: { id: input.reservationId },
     });
     const activatorUser = await this.userRepository.findOne({
-      where: { id: input.activatorId },
+      where: { username: input.activatorUsername },
     });
     await this.validate(activatorUser, reservation);
 

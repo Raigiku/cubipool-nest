@@ -1,9 +1,9 @@
 export class ActivateReservationUserStoryInput {
   reservationId: string;
-  activatorId: string;
+  activatorUsername: string;
 
   constructor(activatorId: string, reservationId: string) {
-    this.activatorId = activatorId;
+    this.activatorUsername = activatorId;
     this.reservationId = reservationId;
   }
 }
