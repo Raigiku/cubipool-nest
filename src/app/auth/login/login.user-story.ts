@@ -8,6 +8,7 @@ import {
   LoginUserStoryInput,
   LoginUserStoryOutput,
 } from ".";
+import { JwtPayload } from "../../../common/jwt-payload";
 import { compare as bcryptCompare } from "bcryptjs";
 import { HttpException, HttpStatus } from "@nestjs/common";
 
@@ -24,7 +25,7 @@ export class LoginUserStory {
       where: { username: input.username },
     });
     await this.validate(input, user);
-    const payload = { id: user.id };
+    const payload: JwtPayload = { userId: user.id };
     const output: LoginUserStoryOutput = {
       jwt: this.jwtService.sign(payload),
     };

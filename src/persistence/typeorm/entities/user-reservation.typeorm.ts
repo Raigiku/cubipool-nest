@@ -42,4 +42,8 @@ export class UserReservationTypeOrm {
       userId: user.id,
     };
   }
+
+  static types() {
+    return ["OWNER", "ACTIVATOR", "GUEST"];
+  }
 }
