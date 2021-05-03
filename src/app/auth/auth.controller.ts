@@ -1,7 +1,10 @@
 import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "../../common/guards/jwt-auth.guard";
-import { GetMyReservationsUserStory, GetMyReservationsUserStoryOutput } from "../reservation/get-my-reservations";
+import {
+  GetMyReservationsUserStory,
+  GetMyReservationsUserStoryOutput,
+} from "../reservation/get-my-reservations";
 import {
   LoginUserStory,
   LoginUserStoryInput,
@@ -15,7 +18,7 @@ import { RegisterUserStoryOutput } from "./register/register.user-story.output";
 export class AuthController {
   constructor(
     private readonly loginUserStory: LoginUserStory,
-    private readonly registerUserStory: RegisterUserStory,
+    private readonly registerUserStory: RegisterUserStory
   ) {}
 
   @Post("login")
