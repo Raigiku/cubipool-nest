@@ -7,6 +7,7 @@ export class GetMyReservationsUserStoryOutput {
   endDateTime: string;
   seats: number;
   type: string;
+  reservationId: string;
 
   static fromUserReservation(
     useReservation: UserReservationTypeOrm
@@ -18,6 +19,7 @@ export class GetMyReservationsUserStoryOutput {
       startDateTime: useReservation.reservation.startTime,
       type: useReservation.reservation.type,
       seats: useReservation.reservation.cubicle.totalSeats,
+      reservationId: useReservation.reservationId,
     };
   }
 }
