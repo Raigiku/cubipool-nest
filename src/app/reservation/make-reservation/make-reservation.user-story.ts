@@ -28,8 +28,8 @@ export class MakeReservationUserStory {
   async execute(input: MakeReservationUserStoryInput) {
 
     let start_time=new Date(input.startTime);
-    let end_time=new Date(start_time);
-    end_time.setHours(start_time.getHours() + 3)
+    let end_time=new Date(input.endTime);
+   
     
 
     const reservation = await this.reservationRepository.findOne({
@@ -48,7 +48,7 @@ export class MakeReservationUserStory {
     });
     await this.validate(user,reservation);
 
-    let newReservation= new ReservationTypeOrm(input.startTime,input.cubicleId,input.userId);
+    let newReservation= new ReservationTypeOrm(input.startTime,input.cubicleId,input.userId,input.endTime);
     newReservation.userReservations=new Array<UserReservationTypeOrm>();
     newReservation.userReservations.push(UserReservationTypeOrm.newHost(input.userId,newReservation.id));
 

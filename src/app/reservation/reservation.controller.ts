@@ -55,10 +55,11 @@ export class ReservationController {
 
   @Post("")
   async createReservation(
+    @Request() request: { user: JwtPayload },
     @Param() params: MakeReservationParams,
     @Body() body: MakeReservationBody
   ) {
-    const input = new MakeReservationUserStoryInput(body.startTime,body.userId,body.cubicleId);
+    const input = new MakeReservationUserStoryInput(body.startTime,request.user.userId,body.cubicleId,body.endTime);
     return this.makeReservationUserStory.execute(input);
   }
 

@@ -47,11 +47,11 @@ export class ReservationTypeOrm {
   @OneToMany(() => UserReservationTypeOrm, (entity) => entity.reservation,{ cascade: true,})
   userReservations: UserReservationTypeOrm[];
 
-  constructor(startTime:string,cubicleId:string,userId:string){
+  constructor(startTime:string,cubicleId:string,userId:string,endTime:string){
 
     let start_time=new Date(startTime);
-    let end_time=new Date(start_time);
-    end_time.setHours(start_time.getHours() + 2)
+    let end_time=new Date(this.endTime);
+    
 
 
       let user_reservation=UserReservationTypeOrm.newHost(userId,this.id);

@@ -8,8 +8,7 @@ export class MakeReservationBody {
   @IsUUID()
   public cubicleId:string
 
-  @IsUUID()
-  public userId:string
-
+  @IsDateString()
+  public endTime:string
 
 }
