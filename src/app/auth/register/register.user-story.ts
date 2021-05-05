@@ -12,9 +12,7 @@ export class RegisterUserStory {
     private readonly userRepository: Repository<UserTypeOrm>
   ) {}
 
-  async execute(
-    input: RegisterUserStoryInput
-  ): Promise<RegisterUserStoryOutput> {
+  async execute(input: RegisterUserStoryInput): Promise<RegisterUserStoryOutput> {
     await this.validate(input);
     const hashedPassword = await bcryptHash(input.password, 10);
     const newUser = UserTypeOrm.new(input.username, hashedPassword);
