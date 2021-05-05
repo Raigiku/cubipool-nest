@@ -7,6 +7,8 @@ import {
   GetAvailableCubiclesUserStoryOutput,
 } from "./get-available-cubicles";
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags("cubicles")
 @Controller("cubicles")
 export class CubicleController {
@@ -14,10 +16,10 @@ export class CubicleController {
     private readonly getAvailableCubiclesUserStory: GetAvailableCubiclesUserStory
   ) {}
 
-  // @ApiBearerAuth()
-  // @UseGuards(JwtAuthGuard)
-  // @Get("available")
-  // getAvailableCubicles(input: GetAvailableCubiclesUserStoryInput): GetAvailableCubiclesUserStoryOutput {
-  //   return this.getAvailableCubiclesUserStory.execute(input);
-  // }
+  @Get("available")
+  getAvailableCubicles(
+    input: GetAvailableCubiclesUserStoryInput
+  ): GetAvailableCubiclesUserStoryOutput {
+    return this.getAvailableCubiclesUserStory.execute(input);
+  }
 }
