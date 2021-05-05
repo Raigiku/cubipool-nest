@@ -42,4 +42,19 @@ export class UserReservationTypeOrm {
       userId: user.id,
     };
   }
+
+  static newHost(
+    userId: string,
+    reservationId:string
+  ): UserReservationTypeOrm {
+    return {
+      id: uuidv4(),
+      reservation:null,
+      reservationId: reservationId,
+      type: "OWNER",
+      user: null,
+      userId: userId,
+    };
+  }
+  
 }

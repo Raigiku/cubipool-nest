@@ -10,6 +10,10 @@ import { CubicleTypeOrm } from "./cubicle.typeorm";
 import { PublicationTypeOrm } from "./publication.typeorm";
 import { UserReservationTypeOrm } from "./user-reservation.typeorm";
 import * as moment from "moment";
+import { isUUID } from "class-validator";
+import { v4 as uuidv4 } from "uuid";
+import { UserTypeOrm } from "./user.typeorm";
+
 
 @Entity("reservations")
 export class ReservationTypeOrm {
@@ -40,8 +44,26 @@ export class ReservationTypeOrm {
   @OneToMany(() => PublicationTypeOrm, (entity) => entity.reservation)
   readonly publications: PublicationTypeOrm[];
 
-  @OneToMany(() => UserReservationTypeOrm, (entity) => entity.reservation)
-  readonly userReservations: UserReservationTypeOrm[];
+  @OneToMany(() => UserReservationTypeOrm, (entity) => entity.reservation,{ cascade: true,})
+  userReservations: UserReservationTypeOrm[];
+
+  constructor(startTime:string,cubicleId:string,userId:string){
+
+    let start_time=new Date(startTime);
+    let end_time=new Date(start_time);
+    end_time.setHours(start_time.getHours() + 2)
+
+
+      let user_reservation=UserReservationTypeOrm.newHost(userId,this.id);
+      this.id= uuidv4(),
+      this.type= "NOT_ACTIVE",
+      this.startTime= start_time.toLocaleString(),
+      this.endTime=end_time.toLocaleString();
+      this.cubicleId=cubicleId;
+      this.publications=null;
+      this.userReservations;
+      return this;
+  }
 
   activate() {
     this.type = "ACTIVE";
@@ -57,6 +79,11 @@ export class ReservationTypeOrm {
 
   get readyToFinish() {
     return this.type === "ACTIVE" || "SHARED";
+  }
+
+  get isActive()
+  {
+    return this.type === "ACTIVE";
   }
 
   get msUntilEndTime() {
