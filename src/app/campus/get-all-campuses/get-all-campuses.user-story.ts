@@ -11,7 +11,9 @@ export class GetAllCampusesUserStory {
 
   async execute(): Promise<GetAllCampusesUserStoryOutput[]> {
     const campuses = await this.campusRepository.find();
-    campuses.map((campus) => {});
-    return null;
+    return campuses.map(
+      (campus) =>
+        ({ id: campus.id, name: campus.name } as GetAllCampusesUserStoryOutput)
+    );
   }
 }
