@@ -6,6 +6,8 @@ import {
   GetAllCampusesUserStoryOutput,
 } from "./get-all-campuses";
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags("campuses")
 @Controller("campuses")
 export class CampusController {
@@ -13,10 +15,8 @@ export class CampusController {
     private readonly getAllCampusesUserUserStory: GetAllCampusesUserStory
   ) {}
 
-  // @ApiBearerAuth()
-  // @UseGuards(JwtAuthGuard)
-  // @Get()
-  // getAllCampuses(): Promise<GetAllCampusesUserStoryOutput[]> {
-  //   return this.getAllCampusesUserUserStory.execute();
-  // }
+  @Get()
+  getAllCampuses(): Promise<GetAllCampusesUserStoryOutput[]> {
+    return this.getAllCampusesUserUserStory.execute();
+  }
 }

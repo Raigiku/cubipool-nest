@@ -57,4 +57,7 @@ export class UserReservationTypeOrm {
     };
   }
   
+  static types() {
+    return ["OWNER", "ACTIVATOR", "GUEST"];
+  }
 }

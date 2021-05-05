@@ -1,6 +1,6 @@
-import { IsUUID } from "class-validator";
+import { IsUsername } from "src/common/validators/user.validator";
 
 export class ActivateReservationBody {
-  @IsUUID()
-  public activatorId: string;
+  @IsUsername()
+  public activatorUsername: string;
 }

@@ -8,5 +8,5 @@ export class ActivateReservationUserStoryError {
   static notInsideActivationTimeFrame = (ms: number) =>
     `tiene que esperar ${moment.utc(ms).format("HH:mm:ss")}`;
   static reservationActivationTimeFramePassed =
-    "ya pasó el tiempo máximo de 5 minutos";
+    "ya pasó el tiempo máximo de 10 minutos";
 }
