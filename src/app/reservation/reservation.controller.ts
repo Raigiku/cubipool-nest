@@ -18,12 +18,16 @@ import {
 } from "./activate-reservation";
 import { ActivateReservationBody } from "./activate-reservation/activate-reservation.body";
 import { ActivateReservationParams } from "./activate-reservation/activate-reservation.params";
+import { MakeReservationBody } from "./make-reservation/make-reservation.body";
+import { MakeReservationParams } from "./make-reservation/make-reservation.params";
+import { MakeReservationUserStoryInput,MakeReservationUserStory } from "./make-reservation";
 import {
   GetMyReservationsUserStory,
   GetMyReservationsUserStoryInput,
   GetMyReservationsUserStoryOutput,
 } from "./get-my-reservations";
 import { GetMyReservationsQueries } from "./get-my-reservations/get-my-reservations.queries";
+
 
 @ApiBearerAuth()
 @ApiTags("reservations")
@@ -32,6 +36,7 @@ import { GetMyReservationsQueries } from "./get-my-reservations/get-my-reservati
 export class ReservationController {
   constructor(
     private readonly activateReservationUserStory: ActivateReservationUserStory,
+    private readonly makeReservationUserStory: MakeReservationUserStory,
     private readonly getAllReservationUserStory: GetMyReservationsUserStory
   ) {}
 
@@ -47,6 +52,21 @@ export class ReservationController {
     return this.activateReservationUserStory.execute(input);
   }
 
+
+  @Post("")
+  async createReservation(
+    @Request() request: { user: JwtPayload },
+    @Param() params: MakeReservationParams,
+    @Body() body: MakeReservationBody
+  ) {
+    const input = new MakeReservationUserStoryInput(body.startTime,request.user.userId,body.cubicleId,body.endTime);
+    return this.makeReservationUserStory.execute(input);
+  }
+
+
+
+  
+
   @Get("/me")
   getMyReservations(
     @Request() request: { user: JwtPayload },
@@ -61,4 +81,5 @@ export class ReservationController {
     };
     return this.getAllReservationUserStory.execute(input);
   }
+
 }
