@@ -10,8 +10,8 @@ import {
   UserTypeOrm,
 } from "src/persistence/typeorm/entities";
 import { Between, Repository,In } from "typeorm";
-import { MakeReservationUserStoryError } from "./Make-reservation.user-story.error";
-import { MakeReservationUserStoryInput } from "./Make-reservation.user-story.input";
+import { MakeReservationUserStoryError } from "./make-reservation.user-story.error";
+import { MakeReservationUserStoryInput } from "./make-reservation.user-story.input";
 
 @Injectable()
 export class MakeReservationUserStory {
