@@ -1,25 +1,32 @@
-import { Controller, Get, Query, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, Query, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/common/guards/jwt-auth.guard";
 import {
   GetAvailableCubiclesUserStory,
   GetAvailableCubiclesUserStoryInput,
   GetAvailableCubiclesUserStoryOutput,
+  GetAvailableCubiclesUserStoryQueries,
+  GetAvailableCubiclesUserStoryParams,
 } from "./get-available-cubicles";
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @ApiTags("cubicles")
-@Controller("cubicles")
+@Controller()
 export class CubicleController {
   constructor(
     private readonly getAvailableCubiclesUserStory: GetAvailableCubiclesUserStory
   ) {}
 
-  @Get("available")
+  @Get("campuses/:campusId/cubicles/available")
   getAvailableCubicles(
-    @Query() input: GetAvailableCubiclesUserStoryInput
+    @Param() params: GetAvailableCubiclesUserStoryParams,
+    @Query() queries: GetAvailableCubiclesUserStoryQueries
   ): Promise<GetAvailableCubiclesUserStoryOutput[]> {
+    const input = GetAvailableCubiclesUserStoryInput.fromController(
+      params,
+      queries
+    );
     return this.getAvailableCubiclesUserStory.execute(input);
   }
 }
