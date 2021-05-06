@@ -1,5 +1,5 @@
 export class GetAvailableCubiclesUserStoryOutput {
-    cubicleId: string;
+  cubicleId: string;
   cubicleCode: string;
   startTime: string;
   endTime: string;

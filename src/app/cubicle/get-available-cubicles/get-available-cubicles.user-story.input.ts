@@ -5,7 +5,7 @@ export class GetAvailableCubiclesUserStoryInput {
   @IsDateString()
   startHour: string;
   hours: number;
-  get startHourDatetime(){
+  get startHourDatetime() {
     return new Date(this.startHour);
-  } 
+  }
 }
