@@ -20,15 +20,15 @@ export class GetAvailableCubiclesUserStory {
     );
     const inputEndDatetime = new Date(input.startHour);
     inputEndDatetime.setDate(inputEndDatetime.getDate() + input.hours);
-    const inputMidDatetime = new Date(input.startHourDatetime.getHours() + 1);
+    const inputMidDatetime = new Date(input.startHour.getHours() + 1);
 
     const availableCubicles = campusCubicles.filter(
       (c) =>
         c.reservations.find(
           (r) =>
-            (new Date(r.startTime) === input.startHourDatetime &&
+            (new Date(r.startTime) === input.startHour &&
               (new Date(r.endTime) === inputEndDatetime).toString()) ||
-            (new Date(r.startTime) === input.startHourDatetime &&
+            (new Date(r.startTime) === input.startHour &&
               (new Date(r.startTime) === inputMidDatetime).toString())
         ) == null
     );
@@ -37,7 +37,7 @@ export class GetAvailableCubiclesUserStory {
         ({
           cubicleId: c.id,
           cubicleCode: c.code,
-          startTime: input.startHourDatetime.toISOString(),
+          startTime: input.startHour.toISOString(),
           endTime: inputEndDatetime.toISOString(),
         } as GetAvailableCubiclesUserStoryOutput)
     );
