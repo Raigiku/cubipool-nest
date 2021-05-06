@@ -1,4 +1,7 @@
-import { GetAvailableCubiclesUserStoryParams, GetAvailableCubiclesUserStoryQueries } from ".";
+import {
+  GetAvailableCubiclesUserStoryParams,
+  GetAvailableCubiclesUserStoryQueries,
+} from ".";
 
 export class GetAvailableCubiclesUserStoryInput {
   campusId: string;
