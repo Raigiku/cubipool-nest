@@ -45,18 +45,18 @@ export class UserReservationTypeOrm {
 
   static newHost(
     userId: string,
-    reservationId:string
+    reservationId: string
   ): UserReservationTypeOrm {
     return {
       id: uuidv4(),
-      reservation:null,
+      reservation: null,
       reservationId: reservationId,
       type: "OWNER",
       user: null,
       userId: userId,
     };
   }
-  
+
   static types() {
     return ["OWNER", "ACTIVATOR", "GUEST"];
   }
