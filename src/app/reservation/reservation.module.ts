@@ -5,10 +5,13 @@ import { MakeReservationUserStory } from "./make-reservation";
 import { GetMyReservationsUserStory } from "./get-my-reservations";
 import { ReservationController } from "./reservation.controller";
 
-
 @Module({
   imports: [PersistenceModule],
   controllers: [ReservationController],
-  providers: [ActivateReservationUserStory,MakeReservationUserStory,GetMyReservationsUserStory],
+  providers: [
+    ActivateReservationUserStory,
+    MakeReservationUserStory,
+    GetMyReservationsUserStory,
+  ],
 })
 export class ReservationModule {}

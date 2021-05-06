@@ -1,11 +1,18 @@
-import { IsDate, IsDateString } from "class-validator";
+import { GetAvailableCubiclesUserStoryParams, GetAvailableCubiclesUserStoryQueries } from ".";
 
 export class GetAvailableCubiclesUserStoryInput {
   campusId: string;
-  @IsDateString()
-  startHour: string;
+  startHour: Date;
   hours: number;
-  get startHourDatetime(){
-    return new Date(this.startHour);
-  } 
+
+  static fromController(
+    params: GetAvailableCubiclesUserStoryParams,
+    queries: GetAvailableCubiclesUserStoryQueries
+  ): GetAvailableCubiclesUserStoryInput {
+    return {
+      campusId: params.campusId,
+      startHour: new Date(queries.startHour),
+      hours: Number(queries.hours),
+    };
+  }
 }

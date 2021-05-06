@@ -1,5 +1,3 @@
 import { IsUUID } from "class-validator";
 
-export class MakeReservationParams {
-
-}
+export class MakeReservationParams {}
