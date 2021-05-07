@@ -50,7 +50,7 @@ export class ReservationTypeOrm {
   constructor(startTime:string,cubicleId:string,userId:string,endTime:string){
 
     let start_time=new Date(startTime);
-    let end_time=new Date(this.endTime);
+    let end_time=new Date(endTime);
     
 
 
