@@ -48,22 +48,24 @@ export class ReservationTypeOrm {
   })
   userReservations: UserReservationTypeOrm[];
 
-  constructor(startTime:string,cubicleId:string,userId:string,endTime:string){
+  constructor(
+    startTime: string,
+    cubicleId: string,
+    userId: string,
+    endTime: string
+  ) {
+    let start_time = new Date(startTime);
+    let end_time = new Date(endTime);
 
-    let start_time=new Date(startTime);
-    let end_time=new Date(endTime);
-    
-
-
-      let user_reservation=UserReservationTypeOrm.newHost(userId,this.id);
-      this.id= uuidv4(),
-      this.type= "NOT_ACTIVE",
-      this.startTime= start_time.toLocaleString(),
-      this.endTime=end_time.toLocaleString();
-      this.cubicleId=cubicleId;
-      this.publications=null;
-      this.userReservations;
-      return this;
+    let user_reservation = UserReservationTypeOrm.newHost(userId, this.id);
+    (this.id = uuidv4()),
+      (this.type = "NOT_ACTIVE"),
+      (this.startTime = start_time.toLocaleString()),
+      (this.endTime = end_time.toLocaleString());
+    this.cubicleId = cubicleId;
+    this.publications = null;
+    this.userReservations;
+    return this;
   }
 
   activate() {
