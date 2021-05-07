@@ -1,14 +1,12 @@
 import { IsDateString, IsUUID } from "class-validator";
 
 export class MakeReservationBody {
-
   @IsDateString()
-  public startTime:string
-  
+  public startTime: string;
+
   @IsUUID()
-  public cubicleId:string
+  public cubicleId: string;
 
   @IsDateString()
-  public endTime:string
-
+  public endTime: string;
 }
