@@ -6,4 +6,13 @@ export class ValidatorMessage {
     `${property} debe tener ${constraint} caracteres o menos`;
 
   static studentCode = "el código de alumno es inválido";
+
+  static positiveNumber = (property: string) =>
+    `${property} debe ser un número positivo`;
+
+  static integerNumber = (property: string) =>
+    `${property} debe ser un número entero`;
+
+  static uuid = (property: string) =>
+    `${property} debe ser un uuid`;
 }

@@ -60,4 +60,8 @@ export class UserReservationTypeOrm {
   static types() {
     return ["OWNER", "ACTIVATOR", "GUEST"];
   }
+
+  static get ownerType() {
+    return "OWNER";
+  }
 }
