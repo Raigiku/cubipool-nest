@@ -72,6 +72,10 @@ export class ReservationTypeOrm {
     this.type = "ACTIVE";
   }
 
+  share() {
+    this.type = "SHARED";
+  }
+
   finish() {
     this.type = "FINISHED";
   }
