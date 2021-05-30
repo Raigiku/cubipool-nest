@@ -9,4 +9,7 @@ export class MakeReservationBody {
 
   @IsDateString()
   public endTime: string;
+
+  
+  
 }

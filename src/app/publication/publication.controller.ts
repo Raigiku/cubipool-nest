@@ -8,13 +8,20 @@ import {
   CreatePublicationUserStoryInput,
 } from "./create-publication";
 
+import {
+  JoinPublicationBody,
+  JoinPublicationUserStory,
+  JoinPublicationUserStoryInput,
+} from "./join-publication";
+
 @ApiBearerAuth()
 @ApiTags("publications")
 @UseGuards(JwtAuthGuard)
 @Controller("publications")
 export class PublicationController {
   constructor(
-    private readonly createPublicationUserStory: CreatePublicationUserStory
+    private readonly createPublicationUserStory: CreatePublicationUserStory,
+    private readonly joinPublicationUserStory: JoinPublicationUserStory
   ) {}
 
   @Post()
@@ -30,4 +37,18 @@ export class PublicationController {
     };
     return this.createPublicationUserStory.execute(input);
   }
+
+  @Post('join')
+  async joinPublication(
+    @Request() request: { user: JwtPayload },
+    @Body() body: JoinPublicationBody
+  ) {
+    const input: JoinPublicationUserStoryInput = {
+      reservationId: body.reservationId,
+      userId: request.user.userId,
+      publicationId: body.publicationId
+    };
+    return this.joinPublicationUserStory.execute(input);
+  }
+
 }

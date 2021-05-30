@@ -57,6 +57,20 @@ export class UserReservationTypeOrm {
     };
   }
 
+  static newGuest(
+    userId: string,
+    reservationId: string
+  ): UserReservationTypeOrm {
+    return {
+      id: uuidv4(),
+      reservation: null,
+      reservationId: reservationId,
+      type: "GUEST",
+      user: null,
+      userId: userId,
+    };
+  }
+
   static types() {
     return ["OWNER", "ACTIVATOR", "GUEST"];
   }
