@@ -13,6 +13,5 @@ export class ValidatorMessage {
   static integerNumber = (property: string) =>
     `${property} debe ser un número entero`;
 
-  static uuid = (property: string) =>
-    `${property} debe ser un uuid`;
+  static uuid = (property: string) => `${property} debe ser un uuid`;
 }
