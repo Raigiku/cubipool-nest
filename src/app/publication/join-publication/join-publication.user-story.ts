@@ -24,20 +24,19 @@ export class JoinPublicationUserStory {
 
   async execute(input: JoinPublicationUserStoryInput) {
     const userReservation = await getRepository(UserReservationTypeOrm)
-    .createQueryBuilder("ur")
-    .leftJoinAndSelect("ur.reservation","reservation")
-    .where("reservation.type In('ACTIVE','SHARED')")
-    .getOne()
+      .createQueryBuilder("ur")
+      .leftJoinAndSelect("ur.reservation", "reservation")
+      .where("reservation.type In('ACTIVE','SHARED')")
+      .getOne();
 
     await this.validate(input, userReservation);
 
     const NewUserReservation = UserReservationTypeOrm.newGuest(
-       input.userId, 
-       input.reservationId
-      )
-    
-    this.userReservationRepository.save(NewUserReservation)
+      input.userId,
+      input.reservationId
+    );
 
+    this.userReservationRepository.save(NewUserReservation);
   }
 
   async validate(
