@@ -7,11 +7,9 @@ import {
 import { ValidatorMessage } from "src/common/validators/validator.message";
 
 export class JoinPublicationBody {
-
-    @IsUUID('4', {
-        message: ValidatorMessage.uuid(FieldsEs.reservationId)
-    })
-
+  @IsUUID("4", {
+    message: ValidatorMessage.uuid(FieldsEs.reservationId),
+  })
   @IsUUID()
   public publicationId: string;
 }

@@ -34,7 +34,7 @@ import { UserModule } from "./user/user.module";
     CampusModule,
     ReservationModule,
     PublicationModule,
-    UserModule
+    UserModule,
   ],
 })
 export class AppModule {}
