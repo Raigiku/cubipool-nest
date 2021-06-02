@@ -28,12 +28,16 @@ export class JoinPublicationUserStory {
     .leftJoinAndSelect("ur.reservation","reservation")
     .where("reservation.type In('ACTIVE','SHARED')")
     .getOne()
+    const publication = await this.publicationRepository.findOne({
+      where: { id: input.publicationId }
+    }
+    )
 
     await this.validate(input, userReservation);
 
     const NewUserReservation = UserReservationTypeOrm.newGuest(
        input.userId, 
-       input.reservationId
+       publication.reservationId
       )
     
     this.userReservationRepository.save(NewUserReservation)

@@ -4,13 +4,10 @@ import {IsDescription, IsSharedSeats} from "src/common/validators/publication.va
 import { ValidatorMessage } from "src/common/validators/validator.message";
 
 export class JoinPublicationBody {
-    @IsUUID()
-    public userId:string;
 
     @IsUUID('4', {
         message: ValidatorMessage.uuid(FieldsEs.reservationId)
     })
-    public reservationId: string;
 
     @IsUUID()
     public publicationId:string;

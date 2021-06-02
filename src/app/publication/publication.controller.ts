@@ -44,7 +44,6 @@ export class PublicationController {
     @Body() body: JoinPublicationBody
   ) {
     const input: JoinPublicationUserStoryInput = {
-      reservationId: body.reservationId,
       userId: request.user.userId,
       publicationId: body.publicationId
     };
