@@ -9,6 +9,7 @@ import { PersistenceModule } from "../persistence/persistence.module";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ReservationModule } from "./reservation/reservation.module";
 import { PublicationModule } from "./publication/publication.module";
+import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { PublicationModule } from "./publication/publication.module";
     CampusModule,
     ReservationModule,
     PublicationModule,
+    UserModule
   ],
 })
 export class AppModule {}
