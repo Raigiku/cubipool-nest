@@ -71,8 +71,6 @@ export class MakeReservationUserStory {
     );
 
     this.reservationRepository.save(newReservation);
-
-    
   }
 
   async validate(

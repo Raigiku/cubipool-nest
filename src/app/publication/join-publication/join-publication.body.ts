@@ -1,6 +1,9 @@
 import { IsUUID } from "class-validator";
 import { FieldsEs } from "src/common/fields.es";
-import {IsDescription, IsSharedSeats} from "src/common/validators/publication.validator";
+import {
+  IsDescription,
+  IsSharedSeats,
+} from "src/common/validators/publication.validator";
 import { ValidatorMessage } from "src/common/validators/validator.message";
 
 export class JoinPublicationBody {
@@ -9,6 +12,6 @@ export class JoinPublicationBody {
         message: ValidatorMessage.uuid(FieldsEs.reservationId)
     })
 
-    @IsUUID()
-    public publicationId:string;
+  @IsUUID()
+  public publicationId: string;
 }

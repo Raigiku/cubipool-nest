@@ -36,12 +36,11 @@ export class JoinPublicationUserStory {
     await this.validate(input, userReservation);
 
     const NewUserReservation = UserReservationTypeOrm.newGuest(
-       input.userId, 
-       publication.reservationId
-      )
-    
-    this.userReservationRepository.save(NewUserReservation)
+      input.userId,
+      publication.reservationId
+    );
 
+    this.userReservationRepository.save(NewUserReservation);
   }
 
   async validate(
