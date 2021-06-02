@@ -39,14 +39,25 @@ export class MakeReservationUserStory {
         ),
       },
     });
+
+    const reservationActives = await this.reservationRepository
+      .createQueryBuilder("reservation")
+      .leftJoinAndSelect(
+        "reservation.userReservations",
+        "userReservation",
+        "reservation.type IN ('NOT_ACTIVE','ACTIVE')"
+      )
+      .where("userReservation.userId=:userId", { userId: input.userId })
+      .getOne();
     //starttime=2021-05-01 03:57:00.000000 +00:00
     //endtime=2021-05-02 06:32:00.000000
-    console.log(start_time.toLocaleString());
+    console.log(start_time.toDateString());
     console.log(reservation);
     const user = await this.userRepository.findOne({
       where: { id: input.userId },
     });
-    await this.validate(user, reservation);
+
+    await this.validate(user, reservation, reservationActives);
 
     let newReservation = new ReservationTypeOrm(
       input.startTime,
@@ -64,7 +75,11 @@ export class MakeReservationUserStory {
     
   }
 
-  async validate(user: UserTypeOrm, reservation: ReservationTypeOrm) {
+  async validate(
+    user: UserTypeOrm,
+    reservation: ReservationTypeOrm,
+    reservationActives: ReservationTypeOrm
+  ) {
     const errors: string[] = [];
 
     //check if user exist
@@ -77,6 +92,11 @@ export class MakeReservationUserStory {
     const cubicleNotAvaliable = reservation == null;
     if (!cubicleNotAvaliable) {
       errors.push(MakeReservationUserStoryError.cubicleNotAvaliable);
+    }
+
+    const pendingCubicle = reservationActives == null;
+    if (!pendingCubicle) {
+      errors.push(MakeReservationUserStoryError.pendientCubicle);
     }
 
     if (errors.length > 0) {

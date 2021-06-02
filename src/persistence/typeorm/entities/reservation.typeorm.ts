@@ -55,7 +55,7 @@ export class ReservationTypeOrm {
     endTime: string
   ) {
     let start_time = new Date(startTime);
-    let end_time = new Date(this.endTime);
+    let end_time = new Date(endTime);
 
     let user_reservation = UserReservationTypeOrm.newHost(userId, this.id);
     (this.id = uuidv4()),

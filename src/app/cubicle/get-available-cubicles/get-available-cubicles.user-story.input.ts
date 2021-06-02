@@ -1,9 +1,14 @@
-import { GetAvailableCubiclesUserStoryParams, GetAvailableCubiclesUserStoryQueries } from ".";
+import * as moment from "moment";
+import {
+  GetAvailableCubiclesUserStoryParams,
+  GetAvailableCubiclesUserStoryQueries,
+} from ".";
 
 export class GetAvailableCubiclesUserStoryInput {
   campusId: string;
-  startHour: Date;
+  startTime: moment.Moment;
   hours: number;
+  endTime: moment.Moment;
 
   static fromController(
     params: GetAvailableCubiclesUserStoryParams,
@@ -11,8 +16,9 @@ export class GetAvailableCubiclesUserStoryInput {
   ): GetAvailableCubiclesUserStoryInput {
     return {
       campusId: params.campusId,
-      startHour: new Date(queries.startHour),
-      hours: Number(queries.hours),
+      startTime: moment(new Date(queries.startTime)),
+      hours: queries.hours,
+      endTime: moment(new Date(queries.startTime)).add(queries.hours, "hours"),
     };
   }
 }

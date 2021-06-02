@@ -39,7 +39,12 @@ export class PublicationTypeOrm {
     this.reservation = reservation;
   }
 
-  static New(description: string, sharedSeats: number, reservationId: string, reservation: ReservationTypeOrm) {
+  static New(
+    description: string,
+    sharedSeats: number,
+    reservationId: string,
+    reservation: ReservationTypeOrm
+  ) {
     return new PublicationTypeOrm(
       uuidv4(),
       description,
