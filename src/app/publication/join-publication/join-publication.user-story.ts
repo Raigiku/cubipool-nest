@@ -30,9 +30,8 @@ export class JoinPublicationUserStory {
     .andWhere("ur.userId=:id",{id:input.userId})
     .getOne()
     const publication = await this.publicationRepository.findOne({
-      where: { id: input.publicationId }
-    }
-    )
+      where: { id: input.publicationId },
+    });
 
     await this.validate(input, userReservation);
 
