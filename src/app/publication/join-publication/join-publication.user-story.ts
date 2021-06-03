@@ -27,6 +27,7 @@ export class JoinPublicationUserStory {
     .createQueryBuilder("ur")
     .leftJoinAndSelect("ur.reservation","reservation")
     .where("reservation.type In('ACTIVE','SHARED')")
+    .andWhere("ur.userId=:id",{id:input.userId})
     .getOne()
     const publication = await this.publicationRepository.findOne({
       where: { id: input.publicationId }
