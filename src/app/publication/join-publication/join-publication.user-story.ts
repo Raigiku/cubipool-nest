@@ -24,11 +24,11 @@ export class JoinPublicationUserStory {
 
   async execute(input: JoinPublicationUserStoryInput) {
     const userReservation = await getRepository(UserReservationTypeOrm)
-    .createQueryBuilder("ur")
-    .leftJoinAndSelect("ur.reservation","reservation")
-    .where("reservation.type In('ACTIVE','SHARED')")
-    .andWhere("ur.userId=:id",{id:input.userId})
-    .getOne()
+      .createQueryBuilder("ur")
+      .leftJoinAndSelect("ur.reservation", "reservation")
+      .where("reservation.type In('ACTIVE','SHARED')")
+      .andWhere("ur.userId=:id", { id: input.userId })
+      .getOne();
     const publication = await this.publicationRepository.findOne({
       where: { id: input.publicationId },
     });
