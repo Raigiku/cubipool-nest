@@ -1,3 +1,3 @@
-export class GetAllPrizesUserStoryError{
+export class GetAllPrizesUserStoryError {
   static userNotFound = "El usuario no existe";
 }
