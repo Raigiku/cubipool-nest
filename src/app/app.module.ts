@@ -10,6 +10,7 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { ReservationModule } from "./reservation/reservation.module";
 import { PublicationModule } from "./publication/publication.module";
 import { UserModule } from "./user/user.module";
+import { PrizeModule } from "./prize/prize.module";
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { UserModule } from "./user/user.module";
     CampusModule,
     ReservationModule,
     PublicationModule,
-    UserModule
+    UserModule,
+    PrizeModule,
   ],
 })
 export class AppModule {}

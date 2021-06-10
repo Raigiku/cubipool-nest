@@ -4,4 +4,5 @@ export class FieldsEs {
   static description = "descripción";
   static sharedSeats = "asientos compartidos";
   static reservationId = "id de la reserva";
+  static userId = "id del usuario";
 }
