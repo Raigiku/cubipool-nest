@@ -15,6 +15,9 @@ export class PrizeTypeOrm {
   @Column("integer", { name: "points_needed", nullable: false })
   readonly pointsNeeded: number;
 
+  @Column("varchar", { name: "image_url", nullable: false })
+  readonly imageUrl: string;
+
   // Relations
   @OneToMany(() => UserPrizeTypeOrm, (entity) => entity.prize)
   readonly userPrizes: UserPrizeTypeOrm[];

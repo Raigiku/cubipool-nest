@@ -16,16 +16,19 @@ export class GetAllPrizesPrizeUserStoryOutput {
   name: string;
   description: string;
   pointsNeeded: number;
+  imageUrl: string;
 
   constructor(
     id: string,
     name: string,
     description: string,
-    pointsNeeded: number
+    pointsNeeded: number,
+    imageUrl: string
   ) {
     this.id = id;
     this.description = description;
     this.name = name;
     this.pointsNeeded = pointsNeeded;
+    this.imageUrl = imageUrl;
   }
 }

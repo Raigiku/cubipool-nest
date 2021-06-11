@@ -29,7 +29,8 @@ export class GetAllPrizesUserStory {
             p.id,
             p.name,
             p.description,
-            p.pointsNeeded
+            p.pointsNeeded,
+            p.imageUrl
           )
       )
     );
