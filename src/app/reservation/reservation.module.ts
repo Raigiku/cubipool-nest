@@ -4,6 +4,7 @@ import { ActivateReservationUserStory } from "./activate-reservation";
 import { MakeReservationUserStory } from "./make-reservation";
 import { GetMyReservationsUserStory } from "./get-my-reservations";
 import { ReservationController } from "./reservation.controller";
+import { CancelReservationUserStory } from "./cancel-reservation";
 
 @Module({
   imports: [PersistenceModule],
@@ -12,6 +13,7 @@ import { ReservationController } from "./reservation.controller";
     ActivateReservationUserStory,
     MakeReservationUserStory,
     GetMyReservationsUserStory,
+    CancelReservationUserStory
   ],
 })
 export class ReservationModule {}

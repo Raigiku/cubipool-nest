@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Delete,
   Request,
   Param,
   Post,
@@ -31,6 +32,14 @@ import {
 } from "./get-my-reservations";
 import { GetMyReservationsQueries } from "./get-my-reservations/get-my-reservations.queries";
 
+import {
+  CancelReservationUserStory,
+  CancelReservationUserStoryInput,
+  CancelReservationParams 
+} from "./cancel-reservation";
+import { request } from "express";
+
+
 @ApiBearerAuth()
 @ApiTags("reservations")
 @UseGuards(JwtAuthGuard)
@@ -39,7 +48,8 @@ export class ReservationController {
   constructor(
     private readonly activateReservationUserStory: ActivateReservationUserStory,
     private readonly makeReservationUserStory: MakeReservationUserStory,
-    private readonly getAllReservationUserStory: GetMyReservationsUserStory
+    private readonly getAllReservationUserStory: GetMyReservationsUserStory,
+    private readonly cancelReservationUserStory: CancelReservationUserStory
   ) {}
 
   @Post(":id/activate")
@@ -83,4 +93,20 @@ export class ReservationController {
     };
     return this.getAllReservationUserStory.execute(input);
   }
+
+
+  @Delete(":id")
+  async cancelReservation(
+    @Request() request: { user: JwtPayload },
+    @Param() params: CancelReservationParams 
+  ) {
+    const input = new CancelReservationUserStoryInput(
+       request.user.userId,
+       params.id,
+    );
+    return this.cancelReservationUserStory.execute(input);
+  }
+
+
+
 }
