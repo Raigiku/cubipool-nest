@@ -23,7 +23,7 @@ export class MakeReservationUserStory {
     @InjectRepository(UserTypeOrm)
     private readonly userRepository: Repository<UserTypeOrm>,
     private readonly schedulerRegistry: SchedulerRegistry
-  ) {}
+  ) { }
 
   async execute(input: MakeReservationUserStoryInput) {
     let start_time = new Date(input.startTime);
@@ -71,6 +71,25 @@ export class MakeReservationUserStory {
     );
 
     this.reservationRepository.save(newReservation);
+
+
+    // call cron job to set reservation as finished
+    const callback = async () => {
+      const reservation = await this.reservationRepository.findOne({
+        where: { id: newReservation.id },
+      });
+      if (reservation.isNotActive) {
+        reservation.finish();
+        this.reservationRepository.save(reservation);
+      }
+    };
+    const timeout = setTimeout(callback, reservation.msUntilEndTime);
+    this.schedulerRegistry.addTimeout(
+      `finish reservation ${reservation.id}`,
+      timeout
+    );
+
+
   }
 
   async validate(

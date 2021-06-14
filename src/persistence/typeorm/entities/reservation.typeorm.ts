@@ -88,6 +88,10 @@ export class ReservationTypeOrm {
     return this.type === "ACTIVE" || "SHARED";
   }
 
+  get isNotActive() {
+    return this.type === "NOT_ACTIVE";
+  }
+
   get isActive() {
     return this.type === "ACTIVE";
   }
