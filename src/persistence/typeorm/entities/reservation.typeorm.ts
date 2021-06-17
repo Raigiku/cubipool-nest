@@ -84,7 +84,6 @@ export class ReservationTypeOrm {
     this.type = "CANCELLED";
   }
 
-
   get hasFinished() {
     return this.type === "FINISHED";
   }

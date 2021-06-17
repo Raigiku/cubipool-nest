@@ -35,10 +35,9 @@ import { GetMyReservationsQueries } from "./get-my-reservations/get-my-reservati
 import {
   CancelReservationUserStory,
   CancelReservationUserStoryInput,
-  CancelReservationParams 
+  CancelReservationParams,
 } from "./cancel-reservation";
 import { request } from "express";
-
 
 @ApiBearerAuth()
 @ApiTags("reservations")
@@ -94,19 +93,15 @@ export class ReservationController {
     return this.getAllReservationUserStory.execute(input);
   }
 
-
   @Delete(":id")
   async cancelReservation(
     @Request() request: { user: JwtPayload },
-    @Param() params: CancelReservationParams 
+    @Param() params: CancelReservationParams
   ) {
     const input = new CancelReservationUserStoryInput(
-       request.user.userId,
-       params.id,
+      request.user.userId,
+      params.id
     );
     return this.cancelReservationUserStory.execute(input);
   }
-
-
-
 }

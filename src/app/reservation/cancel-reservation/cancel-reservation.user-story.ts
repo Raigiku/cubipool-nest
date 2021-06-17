@@ -22,26 +22,24 @@ export class CancelReservationUserStory {
     private readonly userReservationRepository: Repository<UserReservationTypeOrm>,
     @InjectRepository(UserTypeOrm)
     private readonly userRepository: Repository<UserTypeOrm>
-  ) { }
+  ) {}
 
   async execute(input: CancelReservationUserStoryInput) {
- 
-
     const reservation = await this.reservationRepository.findOne({
       where: {
-        id:input.reservationId
+        id: input.reservationId,
       },
     });
-    console.log("reservation " + input.reservationId)
+    console.log("reservation " + input.reservationId);
     const userReservation = await this.userReservationRepository.findOne({
       where: {
-        reservationId:input.reservationId,
-        userId:input.userId,
-        type:"OWNER"
-      }
-    },)
+        reservationId: input.reservationId,
+        userId: input.userId,
+        type: "OWNER",
+      },
+    });
 
-    console.log("userReservation " + userReservation.reservationId)
+    console.log("userReservation " + userReservation.reservationId);
 
     const user = await this.userRepository.findOne({
       where: { id: input.userId },
@@ -76,10 +74,8 @@ export class CancelReservationUserStory {
 
     const notEnoughPrivilege = userReservation == null;
     if (notEnoughPrivilege) {
-    
       errors.push(CancelReservationUserStoryError.notEnoughPrivilege);
     }
-
 
     if (errors.length > 0) {
       throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
