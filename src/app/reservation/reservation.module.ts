@@ -13,7 +13,7 @@ import { CancelReservationUserStory } from "./cancel-reservation";
     ActivateReservationUserStory,
     MakeReservationUserStory,
     GetMyReservationsUserStory,
-    CancelReservationUserStory
+    CancelReservationUserStory,
   ],
 })
 export class ReservationModule {}
