@@ -86,7 +86,7 @@ export class MakeReservationUserStory {
     console.log("time to end : "+ newReservation.msUntilEndTime.toString)
     const timeout = setTimeout(callback, newReservation.msUntilEndTime);
     this.schedulerRegistry.addTimeout(
-      `finish reservation ${newReservation.id}`,
+      `finish make reservation ${newReservation.id}`,
       timeout
     );
   }
