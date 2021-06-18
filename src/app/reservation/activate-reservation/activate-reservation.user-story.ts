@@ -40,7 +40,7 @@ export class ActivateReservationUserStory {
     );
     this.userReservationRepository.save(activatorReservation);
 
-    // call cron job to set reservation as finished
+    // call cron job to set reservation as finished test
     const callback = async () => {
       const reservation = await this.reservationRepository.findOne({
         where: { id: input.reservationId },
