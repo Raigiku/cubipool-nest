@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { UserTypeOrm } from "./user.typeorm";
+import * as uuidjs from "uuid";
 
 @Entity("points_record")
 export class PointsRecordTypeOrm {
@@ -18,4 +19,19 @@ export class PointsRecordTypeOrm {
   @ManyToOne(() => UserTypeOrm)
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   readonly user: UserTypeOrm;
+
+  constructor(id: string, points: number, message: string, userId: string) {
+    this.id = id;
+    this.message = message;
+    this.points = points;
+    this.userId = userId;
+  }
+
+  static new(
+    points: number,
+    message: string,
+    userId: string
+  ): PointsRecordTypeOrm {
+    return new PointsRecordTypeOrm(uuidjs.v4(), points, message, userId);
+  }
 }
