@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import {
+  PointsRecordTypeOrm,
   PublicationTypeOrm,
   ReservationTypeOrm,
   UserReservationTypeOrm,
@@ -17,7 +18,9 @@ export class CreatePublicationUserStory {
     @InjectRepository(ReservationTypeOrm)
     private readonly reservationRepository: Repository<ReservationTypeOrm>,
     @InjectRepository(PublicationTypeOrm)
-    private readonly publicationRepository: Repository<PublicationTypeOrm>
+    private readonly publicationRepository: Repository<PublicationTypeOrm>,
+    @InjectRepository(PointsRecordTypeOrm)
+    private readonly pointsRecordRepository: Repository<PointsRecordTypeOrm>
   ) {}
 
   async execute(input: CreatePublicationUserStoryInput) {
@@ -25,9 +28,25 @@ export class CreatePublicationUserStory {
       where: { id: input.reservationId },
       relations: ["userReservations", "publications"],
     });
+    const user = await this.userRepository.findOne({
+      where: { id: input.userId },
+    });
 
-    await this.validate(input, reservation);
+    await this.validate(input, reservation, user);
 
+    const rewardedPoints = 10;
+    // add points to user record
+    const newPointsRecord = PointsRecordTypeOrm.new(
+      rewardedPoints,
+      "Compartí cubículo",
+      input.userId
+    );
+    await this.pointsRecordRepository.save(newPointsRecord);
+    // add points to user
+    await this.userRepository.save({
+      id: user.id,
+      points: user.points + rewardedPoints,
+    });
     // create publication
     const newPublication = PublicationTypeOrm.New(
       input.description,
@@ -35,10 +54,10 @@ export class CreatePublicationUserStory {
       reservation!.id,
       reservation!
     );
-    this.publicationRepository.save(newPublication);
+    await this.publicationRepository.save(newPublication);
     // update status of reservation
     reservation!.share();
-    this.reservationRepository.save({
+    await this.reservationRepository.save({
       id: reservation!.id,
       type: reservation!.type,
     });
@@ -46,14 +65,12 @@ export class CreatePublicationUserStory {
 
   async validate(
     input: CreatePublicationUserStoryInput,
-    reservation: ReservationTypeOrm | undefined
+    reservation: ReservationTypeOrm | undefined,
+    user: UserTypeOrm | undefined
   ) {
     const errors: string[] = [];
 
     // validate user exists
-    const user = await this.userRepository.findOne({
-      where: { id: input.userId },
-    });
     const userExist = user != null;
     if (!userExist) {
       errors.push(CreatePublicationUserStoryError.userDoesntExist);
