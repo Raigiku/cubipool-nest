@@ -12,6 +12,9 @@ export class PointsRecordTypeOrm {
   @Column("varchar", { name: "message", length: 100, nullable: false })
   readonly message: string;
 
+  @Column("timestamptz", { name: "created_at", nullable: false })
+  readonly createdAt: string;
+
   // Relations
   @Column("uuid", { name: "user_id", nullable: false })
   readonly userId: string;
