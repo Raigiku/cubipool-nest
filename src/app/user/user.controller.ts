@@ -24,7 +24,7 @@ export class UserController {
     return this.getProfileUserStory.execute(request.user.userId);
   }
 
-  @Get('points')
+  @Get("points")
   async getPointsHistory(
     @Request() request: { user: JwtPayload }
   ): Promise<GetPointsUserStoryOutput[]> {
