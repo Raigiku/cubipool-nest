@@ -23,7 +23,13 @@ export class PointsRecordTypeOrm {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   readonly user: UserTypeOrm;
 
-  constructor(id: string, points: number, message: string, userId: string) {
+  constructor(
+    id: string,
+    points: number,
+    message: string,
+    userId: string,
+    createdAt: string
+  ) {
     this.id = id;
     this.message = message;
     this.points = points;
@@ -35,6 +41,13 @@ export class PointsRecordTypeOrm {
     message: string,
     userId: string
   ): PointsRecordTypeOrm {
-    return new PointsRecordTypeOrm(uuidjs.v4(), points, message, userId);
+    const newDate = new Date();
+    return new PointsRecordTypeOrm(
+      uuidjs.v4(),
+      points,
+      message,
+      userId,
+      newDate.toISOString()
+    );
   }
 }
