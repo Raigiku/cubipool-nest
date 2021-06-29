@@ -25,20 +25,18 @@ export class ClaimPrizeUserStory {
     const foundUser = await this.userRepository.findOne(input.userId);
     let userPrize = UserPrizeTypeOrm.newUserPrize(input.prizeId, input.userId);
 
-    
+    let currentPrize = allPrizes.find((obj) => {
+      return obj.id == input.prizeId;
+    });
 
-    let currentPrize=allPrizes.find(obj=>{return obj.id==input.prizeId})
+    this.validate(foundUser, currentPrize.pointsNeeded);
 
+    await this.userPrizeRepository.save(userPrize);
 
-    this.validate(foundUser,currentPrize.pointsNeeded);
+    foundUser.reducePoints(currentPrize.pointsNeeded);
 
-    await this.userPrizeRepository.save(userPrize)
-
-    foundUser.reducePoints(currentPrize.pointsNeeded)
-
-    await this.userRepository.save(foundUser)
-    return new ClaimPrizeUserStoryOutput(
-      );
+    await this.userRepository.save(foundUser);
+    return new ClaimPrizeUserStoryOutput();
   }
 
   validate(user: UserTypeOrm, pointsNeeded: number) {
