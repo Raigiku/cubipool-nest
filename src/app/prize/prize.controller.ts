@@ -1,4 +1,11 @@
-import { Controller, Get, UseGuards, Request,Post,Param } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Post,
+  Param,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/common/guards/jwt-auth.guard";
 import { JwtPayload } from "src/common/jwt-payload";
@@ -7,19 +14,21 @@ import {
   GetAllPrizesUserStoryInput,
 } from "./get-all-prizes";
 
-import{
-ClaimPrizeUserStory,
-ClaimPrizeUserStoryInput,
-ClaimPrizeUserStoryParams
-
-} from "./claim-prize"
+import {
+  ClaimPrizeUserStory,
+  ClaimPrizeUserStoryInput,
+  ClaimPrizeUserStoryParams,
+} from "./claim-prize";
 
 @ApiBearerAuth()
 @ApiTags("prizes")
 @UseGuards(JwtAuthGuard)
 @Controller("prizes")
 export class PrizeController {
-  constructor(private getAllPrizesUserStory: GetAllPrizesUserStory,private claimPrizeUserStory:ClaimPrizeUserStory) {}
+  constructor(
+    private getAllPrizesUserStory: GetAllPrizesUserStory,
+    private claimPrizeUserStory: ClaimPrizeUserStory
+  ) {}
 
   @Get()
   async getAllPrizes(@Request() request: { user: JwtPayload }) {
@@ -27,12 +36,12 @@ export class PrizeController {
     return this.getAllPrizesUserStory.execute(input);
   }
 
-  @Post('/claim/:id')
-  async claimPrize(@Request() request: { user: JwtPayload },
-  @Param() params: ClaimPrizeUserStoryParams,
+  @Post("/claim/:id")
+  async claimPrize(
+    @Request() request: { user: JwtPayload },
+    @Param() params: ClaimPrizeUserStoryParams
   ) {
-    const input = new ClaimPrizeUserStoryInput(request.user.userId,params.id);
+    const input = new ClaimPrizeUserStoryInput(request.user.userId, params.id);
     return this.claimPrizeUserStory.execute(input);
   }
-
 }
