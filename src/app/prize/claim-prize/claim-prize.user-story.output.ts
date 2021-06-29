@@ -1,3 +1,1 @@
-export class ClaimPrizeUserStoryOutput {
-
-}
+export class ClaimPrizeUserStoryOutput {}

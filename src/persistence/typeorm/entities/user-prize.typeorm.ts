@@ -23,19 +23,14 @@ export class UserPrizeTypeOrm {
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   readonly user: UserTypeOrm;
 
-  static  newUserPrize(
-    prizeId:string,
-    userId:string
-  ):UserPrizeTypeOrm
-  {
+  static newUserPrize(prizeId: string, userId: string): UserPrizeTypeOrm {
     return {
-      id:uuidv4(),
-      quantity:1,
-      prizeId:prizeId,
-      prize:null,
-      userId:userId,
-      user:null
-    }
+      id: uuidv4(),
+      quantity: 1,
+      prizeId: prizeId,
+      prize: null,
+      userId: userId,
+      user: null,
+    };
   }
-
 }

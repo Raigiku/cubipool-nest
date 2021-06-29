@@ -31,8 +31,8 @@ export class UserTypeOrm {
   @OneToMany(() => UserPrizeTypeOrm, (entity) => entity.user)
   readonly userPrizes: UserPrizeTypeOrm[];
 
-  reducePoints(points:number){
-    this.points-=points
+  reducePoints(points: number) {
+    this.points -= points;
   }
 
   static new(username: string, hashedPassword: string): UserTypeOrm {
@@ -45,10 +45,7 @@ export class UserTypeOrm {
       pointsRecords: null,
       userPrizes: null,
       userReservations: null,
-      reducePoints:null
+      reducePoints: null,
     };
   }
-
-  
-
 }

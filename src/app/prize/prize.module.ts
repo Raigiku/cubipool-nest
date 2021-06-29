@@ -7,6 +7,6 @@ import { PrizeController } from "./prize.controller";
 @Module({
   imports: [PersistenceModule],
   controllers: [PrizeController],
-  providers: [GetAllPrizesUserStory,ClaimPrizeUserStory],
+  providers: [GetAllPrizesUserStory, ClaimPrizeUserStory],
 })
 export class PrizeModule {}
