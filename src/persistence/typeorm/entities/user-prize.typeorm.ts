@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { PrizeTypeOrm } from "./prize.typeorm";
 import { UserTypeOrm } from "./user.typeorm";
-
+import { v4 as uuidv4 } from "uuid";
 @Entity("user_prize")
 export class UserPrizeTypeOrm {
   @PrimaryColumn("uuid", { name: "user_prize_id" })
@@ -22,4 +22,20 @@ export class UserPrizeTypeOrm {
   @ManyToOne(() => UserTypeOrm)
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
   readonly user: UserTypeOrm;
+
+  static  newUserPrize(
+    prizeId:string,
+    userId:string
+  ):UserPrizeTypeOrm
+  {
+    return {
+      id:uuidv4(),
+      quantity:1,
+      prizeId:prizeId,
+      prize:null,
+      userId:userId,
+      user:null
+    }
+  }
+
 }

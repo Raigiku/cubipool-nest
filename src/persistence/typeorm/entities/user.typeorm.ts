@@ -16,7 +16,7 @@ export class UserTypeOrm {
   readonly password: string;
 
   @Column("integer", { name: "points", nullable: false })
-  readonly points: number;
+  points: number;
 
   @Column("integer", { name: "max_hours_per_day", nullable: false })
   readonly maxHoursPerDay: number;
@@ -31,6 +31,10 @@ export class UserTypeOrm {
   @OneToMany(() => UserPrizeTypeOrm, (entity) => entity.user)
   readonly userPrizes: UserPrizeTypeOrm[];
 
+  reducePoints(points:number){
+    this.points-=points
+  }
+
   static new(username: string, hashedPassword: string): UserTypeOrm {
     return {
       id: uuidv4(),
@@ -41,6 +45,10 @@ export class UserTypeOrm {
       pointsRecords: null,
       userPrizes: null,
       userReservations: null,
+      reducePoints:null
     };
   }
+
+  
+
 }
