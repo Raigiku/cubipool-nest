@@ -34,6 +34,7 @@ export class PointsRecordTypeOrm {
     this.message = message;
     this.points = points;
     this.userId = userId;
+    this.createdAt = createdAt;
   }
 
   static new(
