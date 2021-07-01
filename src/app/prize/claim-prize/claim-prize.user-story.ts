@@ -33,8 +33,10 @@ export class ClaimPrizeUserStory {
 
     let pointsRecord=PointsRecordTypeOrm.new(currentPrize.pointsNeeded*-1,"Reclamado: " + currentPrize.name,input.userId)
 
+    this.validate(foundUser, currentPrize.pointsNeeded);
 
-    this.validate(foundUser,currentPrize.pointsNeeded);
+
+    foundUser.reducePoints(currentPrize.pointsNeeded);
 
     this.pointsRecordRepository.save(pointsRecord)
 
