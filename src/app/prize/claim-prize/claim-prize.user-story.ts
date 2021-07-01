@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import {
+  PointsRecordTypeOrm,
   PrizeTypeOrm,
   UserPrizeTypeOrm,
   UserTypeOrm,
@@ -17,7 +18,10 @@ export class ClaimPrizeUserStory {
     @InjectRepository(UserTypeOrm)
     private userRepository: Repository<UserTypeOrm>,
     @InjectRepository(UserPrizeTypeOrm)
-    private userPrizeRepository: Repository<UserPrizeTypeOrm>
+    private userPrizeRepository: Repository<UserPrizeTypeOrm>,
+    @InjectRepository(PointsRecordTypeOrm)
+    private pointsRecordRepository: Repository<PointsRecordTypeOrm>
+
   ) {}
 
   async execute(input: ClaimPrizeUserStoryInput) {
@@ -25,12 +29,16 @@ export class ClaimPrizeUserStory {
     const foundUser = await this.userRepository.findOne(input.userId);
     let userPrize = UserPrizeTypeOrm.newUserPrize(input.prizeId, input.userId);
 
-    
-
     let currentPrize=allPrizes.find(obj=>{return obj.id==input.prizeId})
+
+    let pointsRecord=PointsRecordTypeOrm.new(currentPrize.pointsNeeded*-1,"Reclamo " + currentPrize.name,input.userId)
 
 
     this.validate(foundUser,currentPrize.pointsNeeded);
+
+    this.pointsRecordRepository.save(pointsRecord)
+
+    
 
     await this.userPrizeRepository.save(userPrize)
 
