@@ -32,6 +32,7 @@ export class ClaimPrizeUserStory {
     let currentPrize=allPrizes.find(obj=>{return obj.id==input.prizeId})
 
     let pointsRecord=PointsRecordTypeOrm.new(currentPrize.pointsNeeded*-1,"Reclamado: " + currentPrize.name,input.userId)
+  
 
     this.validate(foundUser, currentPrize.pointsNeeded);
 

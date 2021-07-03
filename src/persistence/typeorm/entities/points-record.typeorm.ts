@@ -43,12 +43,13 @@ export class PointsRecordTypeOrm {
     userId: string
   ): PointsRecordTypeOrm {
     const newDate = new Date();
+
     return new PointsRecordTypeOrm(
       uuidjs.v4(),
       points,
       message,
       userId,
-      newDate.toISOString()
+      Date.now().toLocaleString()
     );
   }
 }
