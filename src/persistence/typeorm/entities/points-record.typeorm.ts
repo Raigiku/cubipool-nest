@@ -13,7 +13,7 @@ export class PointsRecordTypeOrm {
   @Column("varchar", { name: "message", length: 100, nullable: false })
   readonly message: string;
 
-  @Column("timestamptz", { name: "created_at", nullable: false })
+  @Column("timestamptz", { name: "created_at", nullable: true })
   readonly createdAt: string;
 
   // Relations
