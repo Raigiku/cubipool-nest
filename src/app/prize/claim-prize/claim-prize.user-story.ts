@@ -46,8 +46,6 @@ export class ClaimPrizeUserStory {
 
     await this.userPrizeRepository.save(userPrize);
 
-    foundUser.reducePoints(currentPrize.pointsNeeded);
-
     await this.userRepository.save(foundUser);
     return new ClaimPrizeUserStoryOutput();
   }
