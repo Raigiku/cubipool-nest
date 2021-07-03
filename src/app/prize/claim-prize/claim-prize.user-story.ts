@@ -21,7 +21,6 @@ export class ClaimPrizeUserStory {
     private userPrizeRepository: Repository<UserPrizeTypeOrm>,
     @InjectRepository(PointsRecordTypeOrm)
     private pointsRecordRepository: Repository<PointsRecordTypeOrm>
-
   ) {}
 
   async execute(input: ClaimPrizeUserStoryInput) {
@@ -29,27 +28,28 @@ export class ClaimPrizeUserStory {
     const foundUser = await this.userRepository.findOne(input.userId);
     let userPrize = UserPrizeTypeOrm.newUserPrize(input.prizeId, input.userId);
 
-    let currentPrize=allPrizes.find(obj=>{return obj.id==input.prizeId})
+    let currentPrize = allPrizes.find((obj) => {
+      return obj.id == input.prizeId;
+    });
 
-    let pointsRecord=PointsRecordTypeOrm.new(currentPrize.pointsNeeded*-1,"Reclamado: " + currentPrize.name,input.userId)
-  
+    let pointsRecord = PointsRecordTypeOrm.new(
+      currentPrize.pointsNeeded * -1,
+      "Reclamado: " + currentPrize.name,
+      input.userId
+    );
 
     this.validate(foundUser, currentPrize.pointsNeeded);
 
+    foundUser.reducePoints(currentPrize.pointsNeeded);
+
+    this.pointsRecordRepository.save(pointsRecord);
+
+    await this.userPrizeRepository.save(userPrize);
 
     foundUser.reducePoints(currentPrize.pointsNeeded);
 
-    this.pointsRecordRepository.save(pointsRecord)
-
-    
-
-    await this.userPrizeRepository.save(userPrize)
-
-    foundUser.reducePoints(currentPrize.pointsNeeded)
-
-    await this.userRepository.save(foundUser)
-    return new ClaimPrizeUserStoryOutput(
-      );
+    await this.userRepository.save(foundUser);
+    return new ClaimPrizeUserStoryOutput();
   }
 
   validate(user: UserTypeOrm, pointsNeeded: number) {
