@@ -32,7 +32,7 @@ export class UserTypeOrm {
   readonly userPrizes: UserPrizeTypeOrm[];
 
   reducePoints(points: number) {
-    this.points = this.points -points;
+    this.points = this.points - points;
   }
 
   static new(username: string, hashedPassword: string): UserTypeOrm {
